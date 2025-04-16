@@ -1,0 +1,128 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      4855,        120]
+NotebookOptionsPosition[      4490,        105]
+NotebookOutlinePosition[      4902,        122]
+CellTagsIndexPosition[      4859,        119]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+  "(*", "\:8f93\:5165SageMath\:9884\:5904\:7406\:8fc7\:7684\:56fe\:6570\:636e\
+", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"AbsoluteTiming", "[", 
+   RowBox[{"Parallelize", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"rawList", "=", 
+      RowBox[{"ToExpression", "[", 
+       RowBox[{
+       "Import", "[", 
+        "\"\<D:\\\\Projects\\\\sage\\\\pre_ds_unigraphs_17.txt\>\"", "]"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"preDsUnigraphs1", "=", 
+      RowBox[{"Map", "[", 
+       RowBox[{"Graph", ",", "rawList", ",", 
+        RowBox[{"{", "2", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Print", "[", 
+      RowBox[{
+      "\"\<Number of all unicyclic graphs after ClassifyDegSeq and \
+ClassifyCharPoly is \>\"", ",", 
+       RowBox[{"Plus", "@@", 
+        RowBox[{"Length", "/@", "preDsUnigraphs1"}]}], ",", "\"\< and \>\"", 
+       ",", 
+       RowBox[{"Length", "[", "preDsUnigraphs1", "]"}], ",", 
+       "\"\< classes left.\>\""}], "]"}], ";", 
+     RowBox[{"preDsUnigraphs2", "=", 
+      RowBox[{"Flatten", "[", 
+       RowBox[{
+        RowBox[{"ClassifyPsi", "/@", "preDsUnigraphs1"}], ",", "1"}], "]"}]}],
+      ";", "\[IndentingNewLine]", 
+     RowBox[{"Print", "[", 
+      RowBox[{
+      "\"\<Number of all unicyclic graphs after ClassifyPsi is \>\"", ",", 
+       RowBox[{"Plus", "@@", 
+        RowBox[{"Length", "/@", "preDsUnigraphs2"}]}], ",", "\"\< and \>\"", 
+       ",", 
+       RowBox[{"Length", "[", "preDsUnigraphs2", "]"}], ",", 
+       "\"\< classes left.\>\""}], "]"}], ";", 
+     RowBox[{"preDsUnigraphs3", "=", 
+      RowBox[{"Select", "[", 
+       RowBox[{"preDsUnigraphs2", ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"Length", "[", "#1", "]"}], ">", "2"}], "||", 
+          RowBox[{
+           RowBox[{"Det", "[", 
+            RowBox[{"FindDegSimMat", "@@", "#1"}], "]"}], "=!=", "0"}]}], 
+         "&"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Print", "[", 
+      RowBox[{
+      "\"\<Number of all unicyclic graphs after FindDegSimMat is \>\"", ",", 
+       RowBox[{"Plus", "@@", 
+        RowBox[{"Length", "/@", "preDsUnigraphs3"}]}], ",", "\"\< and \>\"", 
+       ",", 
+       RowBox[{"Length", "[", "preDsUnigraphs3", "]"}], ",", 
+       "\"\< classes left.\>\""}], "]"}], ";", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+      "\"\<D:\\\\Projects\\\\sage\\\\pre_ds_unigraphs_17.txt\>\"", ",", 
+       "preDsUnigraphs3", ",", "\"\<List\>\""}], "]"}]}], "]"}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.953711496028888*^9, 3.9537115066449637`*^9}, {
+   3.953712915340948*^9, 3.9537129307944508`*^9}, {3.953713552309492*^9, 
+   3.9537137378539486`*^9}, {3.953714260404272*^9, 3.953714471573952*^9}, {
+   3.953714753494847*^9, 3.953714799860071*^9}, 3.953714841668594*^9, {
+   3.9537148730601006`*^9, 3.9537148842111225`*^9}, {3.9537190916504555`*^9, 
+   3.953719099225048*^9}, {3.953719138677929*^9, 3.953719166691496*^9}, 
+   3.953719238317616*^9, 3.953719381428236*^9, {3.953719568072851*^9, 
+   3.9537195804778996`*^9}, 3.9537196190626144`*^9, 3.9537204162087784`*^9, {
+   3.953722547521801*^9, 3.953722547903214*^9}, 3.953723804298977*^9, 
+   3.953725789151829*^9, {3.9537258373276634`*^9, 3.9537259736099777`*^9}, {
+   3.9537261563192673`*^9, 3.95372617383996*^9}, 3.953726216785185*^9, {
+   3.953758547611597*^9, 3.95375855047213*^9}, {3.953759694584255*^9, 
+   3.9537597934365673`*^9}, {3.953760411510795*^9, 3.953760412137989*^9}, {
+   3.953760532426565*^9, 3.953760533798403*^9}, {3.953760761676655*^9, 
+   3.953760779048218*^9}, {3.9537608436270485`*^9, 3.953760873768207*^9}, {
+   3.9537626159047794`*^9, 3.953762627828491*^9}, {3.9537626631961803`*^9, 
+   3.9537626814525814`*^9}, {3.9537629716531334`*^9, 3.953763003380663*^9}, {
+   3.9537630760149326`*^9, 
+   3.9537630961821823`*^9}},ExpressionUUID->"2071ab8b-8fd1-0145-80e9-\
+4ac1e4633409"]
+},
+WindowSize->{1269, 677},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (2023\:5e7412\:670812\
+\:65e5)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"578dc449-063f-a04a-b48e-4f850356f7af"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 3928, 83, 380, "Input",ExpressionUUID->"2071ab8b-8fd1-0145-80e9-4ac1e4633409"]
+}
+]
+*)
+
