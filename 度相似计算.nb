@@ -10,98 +10,330 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      4855,        120]
-NotebookOptionsPosition[      4490,        105]
-NotebookOutlinePosition[      4902,        122]
-CellTagsIndexPosition[      4859,        119]
+NotebookDataLength[     13072,        360]
+NotebookOptionsPosition[     12260,        337]
+NotebookOutlinePosition[     12672,        354]
+CellTagsIndexPosition[     12629,        351]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
+
+Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
-  RowBox[{
-  "(*", "\:8f93\:5165SageMath\:9884\:5904\:7406\:8fc7\:7684\:56fe\:6570\:636e\
-", "*)"}], "\[IndentingNewLine]", 
-  RowBox[{"AbsoluteTiming", "[", 
-   RowBox[{"Parallelize", "[", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"tree16\:662f\:6240\:7ed9\:7684\:57fa\:7840\:6811", ",", " ", 
     RowBox[{
-     RowBox[{"rawList", "=", 
-      RowBox[{"ToExpression", "[", 
-       RowBox[{
-       "Import", "[", 
-        "\"\<D:\\\\Projects\\\\sage\\\\pre_ds_unigraphs_17.txt\>\"", "]"}], 
-       "]"}]}], ";", "\[IndentingNewLine]", 
-     RowBox[{"preDsUnigraphs1", "=", 
-      RowBox[{"Map", "[", 
-       RowBox[{"Graph", ",", "rawList", ",", 
-        RowBox[{"{", "2", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
-     RowBox[{"Print", "[", 
+     RowBox[{"cycletree", "[", 
+      RowBox[{"p", ",", "v"}], "]"}], 
+     RowBox[{
+      SubscriptBox[
+       "\:662f\:5728tree16\:7684\:7b2cv\:70b9\:4e0a\:6302\:4e0a\:4e00\:4e2aC",
+        "p"], ".", "A\:662f\:53d6\:90bb\:63a5\:77e9\:9635"}]}], ",", 
+    "DMat\:662f\:5ea6\:6570\:5bf9\:89d2\:9635"}], "*)"}], "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"tree16", "=", 
+     RowBox[{"EdgeAdd", "[", 
       RowBox[{
-      "\"\<Number of all unicyclic graphs after ClassifyDegSeq and \
-ClassifyCharPoly is \>\"", ",", 
-       RowBox[{"Plus", "@@", 
-        RowBox[{"Length", "/@", "preDsUnigraphs1"}]}], ",", "\"\< and \>\"", 
-       ",", 
-       RowBox[{"Length", "[", "preDsUnigraphs1", "]"}], ",", 
-       "\"\< classes left.\>\""}], "]"}], ";", 
-     RowBox[{"preDsUnigraphs2", "=", 
-      RowBox[{"Flatten", "[", 
-       RowBox[{
-        RowBox[{"ClassifyPsi", "/@", "preDsUnigraphs1"}], ",", "1"}], "]"}]}],
-      ";", "\[IndentingNewLine]", 
-     RowBox[{"Print", "[", 
+       RowBox[{"PathGraph", "[", 
+        RowBox[{"Range", "[", "10", "]"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"3", "\[UndirectedEdge]", "11"}], ",", 
+         RowBox[{"11", "\[UndirectedEdge]", "12"}], ",", 
+         RowBox[{"6", "\[UndirectedEdge]", "13"}], ",", 
+         RowBox[{"13", "\[UndirectedEdge]", "14"}], ",", 
+         RowBox[{"14", "\[UndirectedEdge]", "15"}], ",", 
+         RowBox[{"9", "\[UndirectedEdge]", "16"}]}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"cycletree", "[", 
+      RowBox[{"p_Integer", ",", "v_"}], "]"}], ":=", 
+     RowBox[{"GraphUnion", "[", 
+      RowBox[{"tree16", ",", 
+       RowBox[{"Graph", "[", 
+        RowBox[{"Join", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"v", "\[UndirectedEdge]", "17"}], ",", 
+            RowBox[{
+             RowBox[{"15", "+", "p"}], "\[UndirectedEdge]", "v"}]}], "}"}], 
+          ",", 
+          RowBox[{"Table", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"16", "+", "k"}], "\[UndirectedEdge]", 
+             RowBox[{"17", "+", "k"}]}], ",", 
+            RowBox[{"{", 
+             RowBox[{"k", ",", "1", ",", 
+              RowBox[{"p", "-", "2"}]}], "}"}]}], "]"}]}], "]"}], "]"}]}], 
+      "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"A", "[", "G_Graph", "]"}], ":=", 
+     RowBox[{"Normal", "[", 
+      RowBox[{"AdjacencyMatrix", "[", "G", "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"DMat", "[", "G_Graph", "]"}], ":=", 
+     RowBox[{"DiagonalMatrix", "@", 
+      RowBox[{"VertexDegree", "[", "G", "]"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[Psi]", "[", 
+     RowBox[{"G_Graph", ",", 
+      RowBox[{"t_", ":", "t"}], ",", 
+      RowBox[{"\[Mu]_", ":", "\[Mu]"}]}], "]"}], ":=", 
+    RowBox[{"CharacteristicPolynomial", "[", 
+     RowBox[{
       RowBox[{
-      "\"\<Number of all unicyclic graphs after ClassifyPsi is \>\"", ",", 
-       RowBox[{"Plus", "@@", 
-        RowBox[{"Length", "/@", "preDsUnigraphs2"}]}], ",", "\"\< and \>\"", 
-       ",", 
-       RowBox[{"Length", "[", "preDsUnigraphs2", "]"}], ",", 
-       "\"\< classes left.\>\""}], "]"}], ";", 
-     RowBox[{"preDsUnigraphs3", "=", 
+       RowBox[{"AdjacencyMatrix", "[", "G", "]"}], "-", 
+       RowBox[{"\[Mu]", " ", 
+        RowBox[{"DMat", "[", "G", "]"}]}]}], ",", "t"}], "]"}]}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ClassifyDegSeq", "=", 
+     RowBox[{
       RowBox[{"Select", "[", 
-       RowBox[{"preDsUnigraphs2", ",", 
+       RowBox[{
+        RowBox[{"GatherBy", "[", 
+         RowBox[{"#", ",", 
+          RowBox[{
+           RowBox[{"Sort", "[", 
+            RowBox[{"VertexDegree", "[", "#", "]"}], "]"}], "&"}]}], "]"}], 
+        ",", 
         RowBox[{
          RowBox[{
+          RowBox[{"Length", "[", "#", "]"}], ">", "1"}], "&"}]}], "]"}], 
+      "&"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ClassifyCharPoly", "=", 
+     RowBox[{
+      RowBox[{"Select", "[", 
+       RowBox[{
+        RowBox[{"GatherBy", "[", 
+         RowBox[{"#", ",", 
           RowBox[{
-           RowBox[{"Length", "[", "#1", "]"}], ">", "2"}], "||", 
+           RowBox[{"CharacteristicPolynomial", "[", 
+            RowBox[{
+             RowBox[{"AdjacencyMatrix", "[", "#", "]"}], ",", "t"}], "]"}], 
+           "&"}]}], "]"}], ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Length", "[", "#", "]"}], ">", "1"}], "&"}]}], "]"}], 
+      "&"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ClassifyPsi", "=", 
+     RowBox[{
+      RowBox[{"Select", "[", 
+       RowBox[{
+        RowBox[{"GatherBy", "[", 
+         RowBox[{"#", ",", "\[Psi]"}], "]"}], ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Length", "[", "#", "]"}], ">", "1"}], "&"}]}], "]"}], 
+      "&"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "\:7528\:51fd\:6570FindDegSimMat\:6765\:5bfb\:627eG1\:548cG2\:4e4b\:95f4\
+\:662f\:5426\:5ea6\:76f8\:4f3c", ",", 
+     RowBox[{
+     "\:82e5\:5426\:5219\:51fd\:6570\:8f93\:51fa\:7684Det\:4e3a0", "."}]}], 
+    "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"FindDegSimMat", "[", 
+      RowBox[{"G1_Graph", ",", "G2_Graph"}], "]"}], ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"n", "=", 
+          RowBox[{"VertexCount", "[", "G1", "]"}]}], ",", "M"}], "}"}], ",", 
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"n", "!=", 
+           RowBox[{"VertexCount", "[", "G2", "]"}]}], ",", 
+          RowBox[{"Abort", "[", "]"}]}], "]"}], ";", 
+        RowBox[{"M", "=", 
+         RowBox[{"Array", "[", 
           RowBox[{
-           RowBox[{"Det", "[", 
-            RowBox[{"FindDegSimMat", "@@", "#1"}], "]"}], "=!=", "0"}]}], 
-         "&"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
-     RowBox[{"Print", "[", 
+           RowBox[{
+            SubscriptBox["m", 
+             RowBox[{"#1", ",", "#2"}]], "&"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"n", ",", "n"}], "}"}]}], "]"}]}], ";", 
+        RowBox[{"M", "=", 
+         RowBox[{"M", "/.", 
+          RowBox[{
+           RowBox[{"Solve", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{
+                RowBox[{"A", "[", "G1", "]"}], ".", "M"}], "==", 
+               RowBox[{"M", ".", 
+                RowBox[{"A", "[", "G2", "]"}]}]}], ",", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"DMat", "[", "G1", "]"}], ".", "M"}], "==", 
+               RowBox[{"M", ".", 
+                RowBox[{"DMat", "[", "G2", "]"}]}]}]}], "}"}], "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}]}]}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"FindDegSimMatDet", "[", 
+      RowBox[{"G1_Graph", ",", "G2_Graph"}], "]"}], ":=", 
+     RowBox[{"Det", "[", 
+      RowBox[{"FindDegSimMat", "[", 
+       RowBox[{"G1", ",", "G2"}], "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"tree16DegSimMat", "[", 
+      RowBox[{"p_Integer", ",", "v1_", ",", "v2_"}], "]"}], ":=", 
+     RowBox[{"FindDegSimMat", "[", 
       RowBox[{
-      "\"\<Number of all unicyclic graphs after FindDegSimMat is \>\"", ",", 
-       RowBox[{"Plus", "@@", 
-        RowBox[{"Length", "/@", "preDsUnigraphs3"}]}], ",", "\"\< and \>\"", 
-       ",", 
-       RowBox[{"Length", "[", "preDsUnigraphs3", "]"}], ",", 
-       "\"\< classes left.\>\""}], "]"}], ";", 
-     RowBox[{"Export", "[", 
-      RowBox[{
-      "\"\<D:\\\\Projects\\\\sage\\\\pre_ds_unigraphs_17.txt\>\"", ",", 
-       "preDsUnigraphs3", ",", "\"\<List\>\""}], "]"}]}], "]"}], 
-   "]"}]}]], "Input",
- CellChangeTimes->{{3.953711496028888*^9, 3.9537115066449637`*^9}, {
-   3.953712915340948*^9, 3.9537129307944508`*^9}, {3.953713552309492*^9, 
-   3.9537137378539486`*^9}, {3.953714260404272*^9, 3.953714471573952*^9}, {
-   3.953714753494847*^9, 3.953714799860071*^9}, 3.953714841668594*^9, {
-   3.9537148730601006`*^9, 3.9537148842111225`*^9}, {3.9537190916504555`*^9, 
-   3.953719099225048*^9}, {3.953719138677929*^9, 3.953719166691496*^9}, 
-   3.953719238317616*^9, 3.953719381428236*^9, {3.953719568072851*^9, 
-   3.9537195804778996`*^9}, 3.9537196190626144`*^9, 3.9537204162087784`*^9, {
-   3.953722547521801*^9, 3.953722547903214*^9}, 3.953723804298977*^9, 
-   3.953725789151829*^9, {3.9537258373276634`*^9, 3.9537259736099777`*^9}, {
-   3.9537261563192673`*^9, 3.95372617383996*^9}, 3.953726216785185*^9, {
-   3.953758547611597*^9, 3.95375855047213*^9}, {3.953759694584255*^9, 
-   3.9537597934365673`*^9}, {3.953760411510795*^9, 3.953760412137989*^9}, {
-   3.953760532426565*^9, 3.953760533798403*^9}, {3.953760761676655*^9, 
-   3.953760779048218*^9}, {3.9537608436270485`*^9, 3.953760873768207*^9}, {
-   3.9537626159047794`*^9, 3.953762627828491*^9}, {3.9537626631961803`*^9, 
-   3.9537626814525814`*^9}, {3.9537629716531334`*^9, 3.953763003380663*^9}, {
-   3.9537630760149326`*^9, 
-   3.9537630961821823`*^9}},ExpressionUUID->"2071ab8b-8fd1-0145-80e9-\
-4ac1e4633409"]
+       RowBox[{"cycletree", "[", 
+        RowBox[{"p", ",", "v1"}], "]"}], ",", 
+       RowBox[{"cycletree", "[", 
+        RowBox[{"p", ",", "v2"}], "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+   "(*", "\:4f7f\:7528SageMath\:9884\:5904\:7406\:8fc7\:7684\:56fe\:6570\:636e\
+", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+    "importPath", "=", 
+     "\"\<D:\\\\Projects\\\\sage\\\\pre_ds_unigraphs_10.txt\>\""}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+    "exportPath", "=", 
+     "\"\<D:\\\\Projects\\\\sage\\\\pre_ds_unigraphs_10_output.txt\>\""}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"AbsoluteTiming", "[", 
+    RowBox[{"Parallelize", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"rawList", "=", 
+       RowBox[{"ToExpression", "[", 
+        RowBox[{"Import", "[", "importPath", "]"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"preDsUnigraphs1", "=", 
+       RowBox[{"Map", "[", 
+        RowBox[{"Graph", ",", "rawList", ",", 
+         RowBox[{"{", "2", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{
+       "\"\<Number of all unicyclic graphs after ClassifyDegSeq and \
+ClassifyCharPoly is \>\"", ",", 
+        RowBox[{"Plus", "@@", 
+         RowBox[{"Length", "/@", "preDsUnigraphs1"}]}], ",", "\"\< and \>\"", 
+        ",", 
+        RowBox[{"Length", "[", "preDsUnigraphs1", "]"}], ",", 
+        "\"\< classes left.\>\""}], "]"}], ";", 
+      RowBox[{"preDsUnigraphs2", "=", 
+       RowBox[{"Flatten", "[", 
+        RowBox[{
+         RowBox[{"ClassifyPsi", "/@", "preDsUnigraphs1"}], ",", "1"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{
+       "\"\<Number of all unicyclic graphs after ClassifyPsi is \>\"", ",", 
+        RowBox[{"Plus", "@@", 
+         RowBox[{"Length", "/@", "preDsUnigraphs2"}]}], ",", "\"\< and \>\"", 
+        ",", 
+        RowBox[{"Length", "[", "preDsUnigraphs2", "]"}], ",", 
+        "\"\< classes left.\>\""}], "]"}], ";", 
+      RowBox[{"preDsUnigraphs3", "=", 
+       RowBox[{"Select", "[", 
+        RowBox[{"preDsUnigraphs2", ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"Length", "[", "#1", "]"}], ">", "2"}], "||", 
+           RowBox[{
+            RowBox[{"Det", "[", 
+             RowBox[{"FindDegSimMat", "@@", "#1"}], "]"}], "=!=", "0"}]}], 
+          "&"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{
+       "\"\<Number of all unicyclic graphs after FindDegSimMat is \>\"", ",", 
+        RowBox[{"Plus", "@@", 
+         RowBox[{"Length", "/@", "preDsUnigraphs3"}]}], ",", "\"\< and \>\"", 
+        ",", 
+        RowBox[{"Length", "[", "preDsUnigraphs3", "]"}], ",", 
+        "\"\< classes left.\>\""}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Export", "[", 
+       RowBox[{"exportPath", ",", "preDsUnigraphs3", ",", "\"\<List\>\""}], 
+       "]"}]}], "]"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.9537674468007317`*^9, 3.9537675088201637`*^9}, {
+  3.953767543108349*^9, 3.953767548994831*^9}, {3.9537675830266247`*^9, 
+  3.9537675836659546`*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"45182b24-1a27-0343-8132-7091593fd86b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Number of all unicyclic graphs after ClassifyDegSeq and \
+ClassifyCharPoly is \"\>", "\[InvisibleSpace]", "40", 
+   "\[InvisibleSpace]", "\<\" and \"\>", "\[InvisibleSpace]", "19", 
+   "\[InvisibleSpace]", "\<\" classes left.\"\>"}],
+  SequenceForm[
+  "Number of all unicyclic graphs after ClassifyDegSeq and ClassifyCharPoly \
+is ", 40, " and ", 19, " classes left."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.953767555481344*^9, 3.9537675862916393`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[4]:=",ExpressionUUID->"1f6b8be0-df21-754e-b319-\
+5b59142bec2c"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Number of all unicyclic graphs after ClassifyPsi is \"\>", 
+   "\[InvisibleSpace]", "0", "\[InvisibleSpace]", "\<\" and \"\>", 
+   "\[InvisibleSpace]", "0", "\[InvisibleSpace]", "\<\" classes left.\"\>"}],
+  SequenceForm[
+  "Number of all unicyclic graphs after ClassifyPsi is ", 0, " and ", 0, 
+   " classes left."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.953767555481344*^9, 3.9537675866875515`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[4]:=",ExpressionUUID->"77e427a2-cbde-b347-aba2-\
+abbf03a03862"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Number of all unicyclic graphs after FindDegSimMat is \"\>", 
+   "\[InvisibleSpace]", "0", "\[InvisibleSpace]", "\<\" and \"\>", 
+   "\[InvisibleSpace]", "0", "\[InvisibleSpace]", "\<\" classes left.\"\>"}],
+  SequenceForm[
+  "Number of all unicyclic graphs after FindDegSimMat is ", 0, " and ", 0, 
+   " classes left."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.953767555481344*^9, 3.9537675866875515`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[4]:=",ExpressionUUID->"d98fddcb-daf1-2541-a56c-\
+b7bb50432100"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.4290891`", 
+   ",", "\<\"D:\\\\Projects\\\\sage\\\\pre_ds_unigraphs_10_output.txt\"\>"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.953767555528879*^9, 3.9537675866875515`*^9},
+ CellLabel->"Out[17]=",ExpressionUUID->"e9410b33-53fd-3041-9ac7-e42565814e6c"]
+}, Open  ]]
 },
 WindowSize->{1269, 677},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
@@ -121,7 +353,15 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 3928, 83, 380, "Input",ExpressionUUID->"2071ab8b-8fd1-0145-80e9-4ac1e4633409"]
+Cell[CellGroupData[{
+Cell[580, 22, 9555, 257, 955, "Input",ExpressionUUID->"45182b24-1a27-0343-8132-7091593fd86b"],
+Cell[CellGroupData[{
+Cell[10160, 283, 621, 13, 22, "Print",ExpressionUUID->"1f6b8be0-df21-754e-b319-5b59142bec2c"],
+Cell[10784, 298, 569, 12, 22, "Print",ExpressionUUID->"77e427a2-cbde-b347-aba2-abbf03a03862"],
+Cell[11356, 312, 573, 12, 22, "Print",ExpressionUUID->"d98fddcb-daf1-2541-a56c-b7bb50432100"]
+}, Open  ]],
+Cell[11944, 327, 300, 7, 32, "Output",ExpressionUUID->"e9410b33-53fd-3041-9ac7-e42565814e6c"]
+}, Open  ]]
 }
 ]
 *)
